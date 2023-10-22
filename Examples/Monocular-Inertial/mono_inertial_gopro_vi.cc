@@ -40,7 +40,7 @@ bool LoadTelemetry(const string &strImuPath,
                    vector<cv::Point3f> &vGyro);
 
 int main(int argc, char **argv) {
-  if (argc != 5) {
+  if (argc != 6) {
     cerr << endl
          << "Usage: ./mono_inertial_gopro_vi path_to_vocabulary path_to_settings path_to_video path_to_telemetry"
          << endl;
@@ -152,7 +152,7 @@ int main(int argc, char **argv) {
   // Tracking time statistics
   sort(vTimesTrack.begin(), vTimesTrack.end());
   float totaltime = 0;
-  for (auto ni = 0; ni < vTimestamps.size(); ni++) {
+  for (auto ni = 0; ni < vTimesTrack.size(); ni++) {
     totaltime += vTimesTrack[ni];
   }
   cout << "-------" << endl << endl;
@@ -160,7 +160,7 @@ int main(int argc, char **argv) {
   cout << "mean tracking time: " << totaltime / nImages << endl;
 
   // Save camera trajectory
-  SLAM.SaveKeyFrameTrajectoryTUM("KeyFrameTrajectory.txt");
+  SLAM.SaveKeyFrameTrajectoryTUM(argv[5]);
 
   return 0;
 }
