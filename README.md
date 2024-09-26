@@ -1,5 +1,26 @@
 # GoPro ORB-SLAM3
+```
+## Trouble-shooting
+# No "<boost/~~~>"
+sudo apt-get install libboost-dev
 
+## Cannot find lboost-serialization
+sudo apt install libboost-serialization-dev
+
+## Opencv installation (error for video cannot be loaded)
+## Step1 : Install minimal prerequisites (Ubuntu 18.04 as reference)
+sudo apt update && sudo apt install -y cmake g++ wget unzip
+## Step2 : Download and unpack sources from the link. Tested on 4.4.0.
+wget -O opencv.zip https://github.com/opencv/opencv/archive/4.x.zip
+unzip opencv.zip
+## Step3 : Create build directory
+mkdir -p build && cd build
+## Step4 : Configure
+cmake ../opencv-4.x
+## Step5 : Build
+make -j8
+sudo make install
+```
 In this fork I tested some modifications to see if ORB-SLAM3 could be run with GoPro cameras, especially in the Visual-Inertial setting.
 
 Modern GoPro cameras come equipped with an IMU. The sensor stream is encoded in the final .MP4 video file and can be extracted using the [gmpf-parser](https://github.com/gopro/gpmf-parser). According to [this thread](https://github.com/gopro/gpmf-parser/issues/90) starting from GoPro8 the timestamps come from the hardware and we could assume that they are accurate enough to perform visual inertial odometry or SLAM.
